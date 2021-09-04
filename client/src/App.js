@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 const api_base = 'http://localhost:3001';
+/*
+* */
 
 function App() {
 	const [todos, setTodos] = useState([]);
@@ -27,14 +29,14 @@ function App() {
 
 			return todo;
 		}));
-		
+
 	}
 
 	const addTodo = async () => {
 		const data = await fetch(api_base + "/todo/new", {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json" 
+				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
 				text: newTodo
@@ -55,7 +57,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<h1>Welcome, Cabbage Apps</h1>
+			<h1>Welcome</h1>
 			<h4>Your tasks</h4>
 
 			<div className="todos">
