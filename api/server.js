@@ -7,7 +7,10 @@ app.use(express.json());
 app.use(cors());
 
 //Connect the MongoDB Atlas database
-mongoose.connect('mongodb+srv://todo:todo@todoapp.e2uoj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+    /*Due to the security issues mongodb cluster url is removed, create a database cluster and give your 
+        cluster url and credentials to access this.
+      */ 
+mongoose.connect('mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority', {
 	useNewUrlParser: true, 
 	useUnifiedTopology: true 
 }).then(() => console.log("Connected to MongoDB")).catch(console.error);
