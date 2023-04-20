@@ -1,19 +1,33 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
+
+dotenv.config();
 const app = express();
-
-app.use(express.json());
 app.use(cors());
+app.use(bodyParser.json());
 
-//Connect the MongoDB Atlas database
-    /*Due to the security issues mongodb cluster url is removed, create a database cluster and give your 
-        cluster url and credentials to access this.
-      */ 
-mongoose.connect('mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority', {
-	useNewUrlParser: true, 
-	useUnifiedTopology: true 
-}).then(() => console.log("Connected to MongoDB")).catch(console.error);
+// const PORT = process.env.PORT || 8087;
+const MONGODB_URI = process.env.MONGODB_URI;
+
+mongoose.connect(MONGODB_URI, {
+	useCreateIndex: true,
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false
+}, (error) => {
+	if (error) {
+		console.log('Database Error: ', error.message);
+	}
+});
+
+mongoose.connection.once('open', () => {
+	console.log('Database Synced');
+});
+
 
 // Models
 const Todo = require('./models/Todo');
